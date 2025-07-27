@@ -1,0 +1,45 @@
+{
+  "name": "@cygnus-wealth/asset-valuator",
+  "version": "0.1.0",
+  "description": "Asset valuation library for retrieving and converting cryptocurrency prices",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "crypto",
+    "asset",
+    "valuation",
+    "price",
+    "bitcoin",
+    "ethereum"
+  ],
+  "author": "Cygnus Wealth",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "@cygnus-wealth/data-models": "^0.0.1",
+    "axios": "^1.11.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "eslint": "^9.32.0",
+    "jest": "^30.0.5",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3"
+  }
+}
