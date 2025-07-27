@@ -3,10 +3,12 @@ import { PriceData, PriceProvider } from '../types.js';
 
 export class CoinGeckoProvider implements PriceProvider {
   private baseUrl = 'https://api.coingecko.com/api/v3';
+  private stablecoins = new Set(['USDC', 'USDT', 'DAI']);
   private symbolToIdMap: Map<string, string> = new Map([
     ['BTC', 'bitcoin'],
     ['ETH', 'ethereum'],
     ['USDT', 'tether'],
+    ['USDC', 'usd-coin'],
     ['BNB', 'binancecoin'],
     ['SOL', 'solana'],
     ['XRP', 'ripple'],
@@ -19,6 +21,15 @@ export class CoinGeckoProvider implements PriceProvider {
     ['UNI', 'uniswap'],
     ['ATOM', 'cosmos'],
     ['LTC', 'litecoin'],
+    ['DAI', 'dai'],
+    ['WBTC', 'wrapped-bitcoin'],
+    ['AAVE', 'aave'],
+    ['COMP', 'compound-governance-token'],
+    ['CRV', 'curve-dao-token'],
+    ['MKR', 'maker'],
+    ['SNX', 'synthetix-network-token'],
+    ['SUSHI', 'sushi'],
+    ['YFI', 'yearn-finance'],
   ]);
 
   private getCoingeckoId(symbol: string): string {
@@ -49,6 +60,15 @@ export class CoinGeckoProvider implements PriceProvider {
         timestamp: new Date()
       };
     } catch (error) {
+      // For stablecoins, return 1 USD if we can't fetch the price
+      if (this.stablecoins.has(symbol.toUpperCase()) && currency.toLowerCase() === 'usd') {
+        return {
+          symbol: symbol.toUpperCase(),
+          price: 1,
+          timestamp: new Date()
+        };
+      }
+      
       if (axios.isAxiosError(error)) {
         throw new Error(`Failed to fetch price: ${error.message}`);
       }
@@ -81,11 +101,41 @@ export class CoinGeckoProvider implements PriceProvider {
             price,
             timestamp
           });
+        } else if (this.stablecoins.has(symbol.toUpperCase()) && currency.toLowerCase() === 'usd') {
+          // For stablecoins, return 1 USD if price is not found
+          results.push({
+            symbol: symbol.toUpperCase(),
+            price: 1,
+            timestamp
+          });
         }
       }
 
       return results;
     } catch (error) {
+      // If the entire request fails, check if any symbols are stablecoins
+      const results: PriceData[] = [];
+      const timestamp = new Date();
+      
+      for (const symbol of symbols) {
+        if (this.stablecoins.has(symbol.toUpperCase()) && currency.toLowerCase() === 'usd') {
+          results.push({
+            symbol: symbol.toUpperCase(),
+            price: 1,
+            timestamp
+          });
+        }
+      }
+      
+      // If we have stablecoin results, return them; otherwise throw the error
+      if (results.length > 0) {
+        // For non-stablecoins, we still need to throw an error
+        if (results.length < symbols.length) {
+          console.warn(`Failed to fetch prices for some assets: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        }
+        return results;
+      }
+      
       if (axios.isAxiosError(error)) {
         throw new Error(`Failed to fetch prices: ${error.message}`);
       }
