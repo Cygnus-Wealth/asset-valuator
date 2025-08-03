@@ -1,5 +1,5 @@
 import { PriceProvider, AssetPrice, ConversionOptions, SupportedCurrency } from './types.js';
-import { CoinGeckoProvider } from './providers/coingecko.js';
+import { DecentralizedAggregator } from './providers/decentralized-aggregator.js';
 
 export class AssetValuator {
   private provider: PriceProvider;
@@ -7,7 +7,7 @@ export class AssetValuator {
   private cacheTimeout: number = 60000; // 1 minute
 
   constructor(provider?: PriceProvider) {
-    this.provider = provider || new CoinGeckoProvider();
+    this.provider = provider || new DecentralizedAggregator();
   }
 
   private getCacheKey(base: string, quote: string): string {
