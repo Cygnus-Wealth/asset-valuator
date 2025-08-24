@@ -68,3 +68,60 @@ This is a TypeScript library for cryptocurrency price retrieval and conversion, 
 - Uses Jest with ts-jest for TypeScript support
 - Configured for ES modules with proper module resolution
 - Test files use .test.ts naming convention
+
+## DDD Architecture Agent Selection Guide
+
+When working on architectural tasks in this Domain-Driven Design (DDD) project, use the appropriate specialized agent:
+
+### ddd-enterprise-architect
+Use for **strategic architectural decisions**:
+- Domain decomposition and bounded context definition
+- Context mapping between different domains
+- Establishing enterprise-wide architectural standards
+- Defining communication contracts between domains
+- Refactoring monoliths into domain-based architecture
+- Event storming and ubiquitous language definition
+
+### ddd-domain-architect
+Use for **domain-specific implementations**:
+- Translating enterprise guidelines into domain implementation
+- Defining bounded contexts within a specific domain
+- Negotiating contracts between systems in a domain
+- Designing aggregates and domain events
+- Adapting enterprise directives to domain requirements
+- Portfolio aggregation system design
+
+### ddd-system-architect
+Use for **internal system architecture**:
+- Module decomposition within a single system
+- Library selection for specific features
+- E2E test planning and scenarios
+- System-level architectural patterns
+- DeFi dashboard state management decisions
+- Wallet connection functionality design
+
+### ddd-unit-architect
+Use for **code-level architecture**:
+- File structure and class design
+- Method signatures and interfaces
+- Unit test specifications
+- TypeScript/React component architecture
+- Browser-first implementation patterns
+- Clean code principles application
+
+### ddd-software-engineer
+Use for **code implementation**:
+- Translating unit architect designs into code
+- Writing comprehensive unit tests
+- Implementing domain entities and value objects
+- Creating repository patterns
+- Ensuring DDD pattern adherence in code
+- Refactoring existing code to follow DDD patterns
+
+### Selection Examples
+
+1. **"Design the portfolio aggregation domain"** → ddd-domain-architect
+2. **"Which state management library for our app?"** → ddd-system-architect
+3. **"Implement the PortfolioAggregator class"** → ddd-software-engineer
+4. **"Create file structure for encryption module"** → ddd-unit-architect
+5. **"How should domains communicate?"** → ddd-enterprise-architect
