@@ -1,17 +1,38 @@
 import { PriceProvider, AssetPrice, ConversionOptions, SupportedCurrency } from './types.js';
 import { DecentralizedAggregator } from './providers/decentralized-aggregator.js';
+import { TestPriceProvider } from './providers/test-price-provider.js';
+
+export type Environment = 'production' | 'testnet' | 'local';
 
 export class AssetValuator {
   private provider: PriceProvider;
   private cache: Map<string, { price: number; timestamp: number }> = new Map();
   private cacheTimeout: number = 60000; // 1 minute
+  private environment: Environment;
 
-  constructor(provider?: PriceProvider) {
-    this.provider = provider || new DecentralizedAggregator();
+  constructor(providerOrEnv?: PriceProvider | Environment, environment?: Environment) {
+    if (typeof providerOrEnv === 'string') {
+      this.environment = providerOrEnv;
+      this.provider = this.selectProvider(providerOrEnv);
+    } else {
+      this.environment = environment || 'production';
+      this.provider = providerOrEnv || this.selectProvider(this.environment);
+    }
+  }
+
+  private selectProvider(env: Environment): PriceProvider {
+    switch (env) {
+      case 'local':
+        return new TestPriceProvider();
+      case 'production':
+      case 'testnet':
+      default:
+        return new DecentralizedAggregator();
+    }
   }
 
   private getCacheKey(base: string, quote: string): string {
-    return `${base.toUpperCase()}_${quote.toUpperCase()}`;
+    return `${this.environment}:${base.toUpperCase()}_${quote.toUpperCase()}`;
   }
 
   private async getCachedOrFetchPrice(symbol: string, currency: string): Promise<number> {
