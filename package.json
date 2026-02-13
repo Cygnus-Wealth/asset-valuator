@@ -21,6 +21,14 @@
   ],
   "author": "Cygnus Wealth",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cygnus-Wealth/asset-valuator.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "type": "module",
   "files": [
     "dist"
@@ -29,7 +37,7 @@
     "node": ">=16"
   },
   "dependencies": {
-    "@cygnus-wealth/data-models": "^0.0.1",
+    "@cygnus-wealth/data-models": "^1.0.0",
     "axios": "^1.11.0"
   },
   "devDependencies": {
