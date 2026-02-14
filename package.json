@@ -1,6 +1,6 @@
 {
   "name": "@cygnus-wealth/asset-valuator",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Asset valuation library for retrieving and converting cryptocurrency prices",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
