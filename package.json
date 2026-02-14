@@ -27,7 +27,6 @@
   },
   "publishConfig": {
     "access": "public",
-    "provenance": true
   },
   "type": "module",
   "files": [
