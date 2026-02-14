@@ -31,7 +31,7 @@ class MockPriceProvider implements PriceProvider {
       try {
         const priceData = await this.fetchPrice(symbol, currency);
         results.push(priceData);
-      } catch (error) {
+      } catch {
         // Skip if price not found
       }
     }

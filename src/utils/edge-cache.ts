@@ -1,4 +1,4 @@
-import { hasIndexedDB, hasLocalStorage, isBrowser } from './browser-detect.js';
+import { hasIndexedDB, hasLocalStorage } from './browser-detect.js';
 
 export interface CacheEntry<T> {
   data: T;
@@ -99,7 +99,7 @@ export class EdgeCache {
         }
         break;
 
-      default: // memory
+      default: { // memory
         const entry = this.memoryCache.get(key);
         if (entry && now - entry.timestamp < entry.ttl) {
           return entry.data;
@@ -107,6 +107,8 @@ export class EdgeCache {
         if (entry) {
           this.memoryCache.delete(key);
         }
+        break;
+      }
     }
 
     return null;

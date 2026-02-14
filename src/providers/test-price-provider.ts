@@ -9,7 +9,7 @@ const DETERMINISTIC_PRICES: Record<string, number> = {
 };
 
 export class TestPriceProvider implements PriceProvider {
-  async fetchPrice(symbol: string, currency: string = 'usd'): Promise<PriceData> {
+  async fetchPrice(symbol: string, _currency: string = 'usd'): Promise<PriceData> {
     const normalizedSymbol = symbol.toUpperCase();
     const price = DETERMINISTIC_PRICES[normalizedSymbol];
 

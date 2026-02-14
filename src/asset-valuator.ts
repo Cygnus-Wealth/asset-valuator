@@ -1,4 +1,4 @@
-import { PriceProvider, AssetPrice, ConversionOptions, SupportedCurrency } from './types.js';
+import { PriceProvider, AssetPrice, ConversionOptions } from './types.js';
 import { DecentralizedAggregator } from './providers/decentralized-aggregator.js';
 import { TestPriceProvider } from './providers/test-price-provider.js';
 

@@ -42,7 +42,7 @@ export class CoinPaprikaProvider implements PriceProvider {
       // CoinPaprika only provides USD prices in free tier
       const priceInUSD = data.quotes.USD.price;
       
-      let price = priceInUSD;
+      const price = priceInUSD;
       if (currency.toLowerCase() !== 'usd') {
         // For other currencies, we'd need to convert
         // This is a limitation of the free API
