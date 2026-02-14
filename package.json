@@ -26,7 +26,7 @@
     "url": "git+https://github.com/Cygnus-Wealth/asset-valuator.git"
   },
   "publishConfig": {
-    "access": "public",
+    "access": "public"
   },
   "type": "module",
   "files": [
