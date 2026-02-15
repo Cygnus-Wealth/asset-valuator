@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import { AssetValuator } from './asset-valuator.js';
 import { PriceProvider, PriceData } from './types.js';
 

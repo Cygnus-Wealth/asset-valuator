@@ -184,17 +184,40 @@ interface DataModelConverter {
 
 ## Testing Strategy
 
+### Framework
+All tests use **Vitest 3.2.4** (migrated from Jest for enterprise consistency).
+
+- `vitest.config.ts` — unit tests (`*.test.ts`, excludes `*.e2e.test.ts`)
+- `vitest.e2e.config.ts` — E2E tests (`*.e2e.test.ts`, 15 s timeout, 2 retries)
+
 ### Unit Testing
 - Domain logic isolation
 - Value object validation
 - Cache behavior verification
 - Error handling scenarios
+- Run: `npm test`
+
+### E2E Testing
+End-to-end scenarios verify the full pricing pipeline:
+
+| Scenario | Priority | Description |
+|---|---|---|
+| Single price fetch | P0 | Fetch BTC/ETH/USDC price in USD |
+| Batch price fetch | P1 | Fetch multiple assets in one call |
+| Currency conversion | P1 | BTC→USD, USD→ETH, cross-crypto |
+| API unavailable fallback | P1 | Graceful failure when provider down |
+| Stale price detection | P2 | Cache TTL, expiry, and refresh |
+
+**Recorded vs live responses:**
+- CI runs use recorded API fixtures (`src/__fixtures__/coingecko-responses.ts`) via a `RecordedPriceProvider` for deterministic results.
+- Nightly / manual runs set `E2E_LIVE=true` to hit real provider APIs.
+
+Run: `npm run test:e2e` (CI) or `E2E_LIVE=true npm run test:e2e` (live)
 
 ### Integration Testing
 - Provider API mocking
 - Cache integration
 - Data conversion accuracy
-- End-to-end workflows
 
 ### Contract Testing
 - Provider API contracts
@@ -250,7 +273,7 @@ interface DataModelConverter {
 
 ### External Dependencies
 - `axios`: HTTP client for API calls
-- `jest`: Testing framework
+- `vitest`: Testing framework
 - `typescript`: Type safety
 
 ### Provider Dependencies

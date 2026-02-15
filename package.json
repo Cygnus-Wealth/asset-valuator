@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "jest",
+    "test": "vitest run",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts",
     "lint": "eslint src",
     "prepublishOnly": "npm run build"
   },
@@ -41,15 +42,13 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@types/jest": "^30.0.0",
     "@types/node": "^24.1.0",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
     "eslint": "^9.32.0",
-    "jest": "^30.0.5",
-    "ts-jest": "^29.4.0",
     "tsx": "^4.7.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.55.0"
+    "typescript-eslint": "^8.55.0",
+    "vitest": "^3.2.4"
   }
 }
