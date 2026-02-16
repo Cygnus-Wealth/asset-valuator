@@ -1,6 +1,8 @@
 name: CI
 
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -24,8 +26,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Test
+      - name: Unit Tests
         run: npm test
 
-      - name: E2E Test
+      - name: E2E Tests
         run: npm run test:e2e
