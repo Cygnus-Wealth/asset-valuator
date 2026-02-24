@@ -3,7 +3,7 @@ import { PriceData, PriceProvider } from '../types.js';
 
 export class CoinGeckoProvider implements PriceProvider {
   private baseUrl = 'https://api.coingecko.com/api/v3';
-  private stablecoins = new Set(['USDC', 'USDT', 'DAI']);
+  private stablecoins = new Set(['USDC', 'USDT', 'DAI', 'PYUSD']);
   private symbolToIdMap: Map<string, string> = new Map([
     ['BTC', 'bitcoin'],
     ['ETH', 'ethereum'],
@@ -30,6 +30,7 @@ export class CoinGeckoProvider implements PriceProvider {
     ['SNX', 'synthetix-network-token'],
     ['SUSHI', 'sushi'],
     ['YFI', 'yearn-finance'],
+    ['PYUSD', 'paypal-usd'],
   ]);
 
   private getCoingeckoId(symbol: string): string {
